@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "type": "shell",
+    "options": {
+        "cwd": "${workspaceRoot}"
+    },
+    "tasks": [
+        {
+            "label": "build",
+            "command": "go build -o bin ./application/...",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+        }
+    ]
+}
