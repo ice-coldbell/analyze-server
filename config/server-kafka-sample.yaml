@@ -1,0 +1,13 @@
+receiver:
+  http:
+    path: event
+    port: 8080
+    shutdownTimeout: 10
+    enable: true
+queue:
+  type: kafka
+  writer:
+    brokers: 
+      - localhost:9092
+    topic : event_topic
+    acks: one

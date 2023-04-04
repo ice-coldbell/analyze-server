@@ -1,0 +1,8 @@
+queue:
+  type: kafka
+  reader:
+    groupID : event-worker
+    brokers:
+      - localhost:9092
+    topic : event_topic
+    timeout : 10
