@@ -1,8 +1,8 @@
 package receiver
 
 import (
-	"github.com/ice-coldbell/analyze-server/internal/infra/queue"
-	"github.com/ice-coldbell/analyze-server/internal/model"
+	"github.com/ice-coldbell/analyze-server/core/infra/queue"
+	"github.com/ice-coldbell/analyze-server/core/model"
 	"github.com/ice-coldbell/analyze-server/pkg/logger"
 )
 

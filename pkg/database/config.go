@@ -3,7 +3,7 @@ package database
 import (
 	"context"
 
-	"github.com/ice-coldbell/analyze-server/internal/model"
+	"github.com/ice-coldbell/analyze-server/core/model"
 	"github.com/ice-coldbell/analyze-server/pkg/database/cassandra"
 	"github.com/ice-coldbell/analyze-server/pkg/errorx"
 	"gopkg.in/yaml.v3"

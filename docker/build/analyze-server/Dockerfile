@@ -13,7 +13,7 @@ RUN go mod download && go mod verify
 
 COPY application application
 COPY pkg pkg
-COPY internal internal
+COPY core core
 
 RUN go build -o ./analyze-server ./application/analyze-server
 

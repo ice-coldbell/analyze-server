@@ -9,7 +9,7 @@ import (
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"
-	model "github.com/ice-coldbell/analyze-server/internal/model"
+	model "github.com/ice-coldbell/analyze-server/core/model"
 )
 
 // MockDatabase is a mock of Database interface.

@@ -34,10 +34,8 @@ services:
     depends_on:
       - kafka
     restart: always
-    environment:
-      - KAFKA_CLUSTERS_0_NAME=local
-      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=host.docker.internal:9092
-      - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+    env_file:
+      - docker/environment/kafka-ui/kafka-ui.env
   cassandra-node-0:
     image: cassandra:3.11
     ports:

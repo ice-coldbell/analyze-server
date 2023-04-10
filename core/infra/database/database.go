@@ -3,7 +3,7 @@ package database
 import (
 	"context"
 
-	"github.com/ice-coldbell/analyze-server/internal/model"
+	"github.com/ice-coldbell/analyze-server/core/model"
 )
 
 //go:generate go run github.com/golang/mock/mockgen -package=database -source=./database.go -destination=./mock_queue_test.go Database

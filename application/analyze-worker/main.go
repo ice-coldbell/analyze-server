@@ -4,8 +4,8 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/ice-coldbell/analyze-server/internal/config"
-	"github.com/ice-coldbell/analyze-server/internal/service/worker"
+	"github.com/ice-coldbell/analyze-server/core/config"
+	"github.com/ice-coldbell/analyze-server/core/service/worker"
 	"github.com/ice-coldbell/analyze-server/pkg/errorx"
 	"github.com/ice-coldbell/analyze-server/pkg/logger"
 )

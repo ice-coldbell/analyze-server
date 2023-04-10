@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/gocql/gocql"
-	"github.com/ice-coldbell/analyze-server/internal/model"
+	"github.com/ice-coldbell/analyze-server/core/model"
 	"github.com/ice-coldbell/analyze-server/pkg/errorx"
 	"github.com/ice-coldbell/analyze-server/pkg/logger"
 	"github.com/scylladb/gocqlx/v2"
