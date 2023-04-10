@@ -1,0 +1,12 @@
+receiver:
+  http:
+    path: event
+    port: 8080
+    shutdownTimeout: 10
+    enable: true
+queue:
+  type: "rabbitmq"
+  url : "amqp://guest:guest@rabbitmq:5672/"
+  name : "event_queue"
+  readLoop : 7
+  timeout : 10

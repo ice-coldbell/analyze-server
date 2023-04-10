@@ -1,20 +1,15 @@
 package receiver
 
 import (
-	"context"
-	"encoding/json"
-	"fmt"
-
 	"github.com/ice-coldbell/analyze-server/internal/infra/queue"
 	"github.com/ice-coldbell/analyze-server/internal/model"
-	"github.com/ice-coldbell/analyze-server/pkg/errorx"
 	"github.com/ice-coldbell/analyze-server/pkg/logger"
 )
 
-func New(cfg Config, queue queue.Queue, l logger.Logger) *core {
+func New(cfg Config, q queue.Queue, l logger.Logger) *core {
 	c := &core{
-		queue: queue,
-		l:     l,
+		queue: q,
+		l:     l.Named("RECEIVER"),
 
 		stop: make(map[string]stopFunc),
 	}
@@ -22,20 +17,6 @@ func New(cfg Config, queue queue.Queue, l logger.Logger) *core {
 	if cfg.HTTP != nil && cfg.HTTP.Enable {
 		c.httpReceiver(cfg.HTTP)
 	}
-
-	queue.Handle(model.Event{},
-		func(ctx context.Context) error {
-			ctxData := ctx.Value("data").([]byte)
-
-			var event model.Event
-			if err := json.Unmarshal(ctxData, &event); err != nil {
-				return errorx.Wrap(err)
-			}
-			fmt.Printf("%+v\n", event)
-
-			return nil
-		})
-	queue.Start()
 
 	// if cfg.WebSocket != nil && cfg.WebSocket.Enable {
 
@@ -49,6 +30,7 @@ func New(cfg Config, queue queue.Queue, l logger.Logger) *core {
 
 	// }
 
+	q.ReadStart()
 	return c
 }
 

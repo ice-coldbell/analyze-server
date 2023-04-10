@@ -14,24 +14,20 @@ const (
 
 func NewEvent(eventType int, identifier, userID string, data json.RawMessage) Event {
 	return Event{
-		ID:         uuid.New(),
-		Timestamp:  time.Now().UnixMilli(),
-		Type:       eventType,
-		Identifier: identifier,
-		UserID:     userID,
-		Data:       data,
+		ID:             uuid.New(),
+		EventTimestamp: time.Now().UnixMilli(),
+		Type:           eventType,
+		Identifier:     identifier,
+		UserID:         userID,
+		Data:           data,
 	}
 }
 
 type Event struct {
-	ID         uuid.UUID       `json:"id"`
-	Timestamp  int64           `json:"timestamp"` // UnixMilli
-	Type       int             `json:"type"`
-	Identifier string          `json:"identifier"`
-	UserID     string          `json:"user_id"`
-	Data       json.RawMessage `json:"data"`
-}
-
-func (Event) Name() string {
-	return "event"
+	ID             [16]byte        `json:"id"`
+	EventTimestamp int64           `json:"event_timestamp"` // UnixMilli
+	Type           int             `json:"type"`
+	Identifier     string          `json:"identifier"`
+	UserID         string          `json:"user_id"`
+	Data           json.RawMessage `json:"data"`
 }

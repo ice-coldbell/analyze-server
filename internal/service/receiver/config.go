@@ -1,10 +1,10 @@
 package receiver
 
 type Config struct {
-	HTTP      *httpConfig      `yaml:"http"`
-	WebSocket *websocketConfig `yaml:"websocket"`
-	GRPC      *grpcConfig      `yaml:"grpc"`
-	TCP       *tcpConfig       `yaml:"tcp"`
+	HTTP *httpConfig `yaml:"http"`
+	// WebSocket *websocketConfig `yaml:"websocket"`
+	// GRPC      *grpcConfig      `yaml:"grpc"`
+	// TCP       *tcpConfig       `yaml:"tcp"`
 }
 
 type httpConfig struct {
@@ -14,6 +14,7 @@ type httpConfig struct {
 	Enable             bool   `yaml:"enable"`
 }
 
+/* TODO
 type websocketConfig struct {
 	Path   string `yaml:"path"`
 	Enable bool   `yaml:"enable"`
@@ -26,3 +27,4 @@ type grpcConfig struct {
 type tcpConfig struct {
 	Enable bool `yaml:"enable"`
 }
+*/

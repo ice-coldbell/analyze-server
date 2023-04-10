@@ -1,0 +1,14 @@
+worker:
+db:
+  type: cassandra
+  hosts:
+    - cassandra-node-0:9042
+    - cassandra-node-1:9042
+    - cassandra-node-2:9042
+  keyspace: event
+queue:
+  type: "rabbitmq"
+  url : "amqp://guest:guest@rabbitmq:5672/"
+  name : "event_queue"
+  readLoop : 7
+  timeout : 10

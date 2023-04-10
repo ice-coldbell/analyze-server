@@ -91,7 +91,7 @@ func (q *rabbitMQ) Enqueue(msg any) error {
 	return nil
 }
 
-func (q *rabbitMQ) Start() {
+func (q *rabbitMQ) ReadStart() {
 	for i := 0; i < q.readerNum; i++ {
 		q.readerWg.Add(1)
 		loopNum := strconv.Itoa(i)
@@ -103,7 +103,7 @@ func (q *rabbitMQ) Start() {
 	}
 }
 
-func (q *rabbitMQ) Stop() error {
+func (q *rabbitMQ) Close() error {
 	if !q.ch.IsClosed() {
 		if err := q.ch.Close(); err != nil {
 			return errorx.Wrap(err)

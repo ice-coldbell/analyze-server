@@ -34,18 +34,32 @@ func (m *MockQueue) EXPECT() *MockQueueMockRecorder {
 	return m.recorder
 }
 
-// Enqueue mocks base method.
-func (m *MockQueue) Enqueue(msg any) error {
+// Close mocks base method.
+func (m *MockQueue) Close() error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Enqueue", msg)
+	ret := m.ctrl.Call(m, "Close")
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Close indicates an expected call of Close.
+func (mr *MockQueueMockRecorder) Close() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Close", reflect.TypeOf((*MockQueue)(nil).Close))
+}
+
+// Enqueue mocks base method.
+func (m *MockQueue) Enqueue(message any) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Enqueue", message)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Enqueue indicates an expected call of Enqueue.
-func (mr *MockQueueMockRecorder) Enqueue(msg interface{}) *gomock.Call {
+func (mr *MockQueueMockRecorder) Enqueue(message interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Enqueue", reflect.TypeOf((*MockQueue)(nil).Enqueue), msg)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Enqueue", reflect.TypeOf((*MockQueue)(nil).Enqueue), message)
 }
 
 // Handle mocks base method.
@@ -60,28 +74,14 @@ func (mr *MockQueueMockRecorder) Handle(message, fn interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Handle", reflect.TypeOf((*MockQueue)(nil).Handle), message, fn)
 }
 
-// Start mocks base method.
-func (m *MockQueue) Start() {
+// ReadStart mocks base method.
+func (m *MockQueue) ReadStart() {
 	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "Start")
+	m.ctrl.Call(m, "ReadStart")
 }
 
-// Start indicates an expected call of Start.
-func (mr *MockQueueMockRecorder) Start() *gomock.Call {
+// ReadStart indicates an expected call of ReadStart.
+func (mr *MockQueueMockRecorder) ReadStart() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Start", reflect.TypeOf((*MockQueue)(nil).Start))
-}
-
-// Stop mocks base method.
-func (m *MockQueue) Stop() error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Stop")
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// Stop indicates an expected call of Stop.
-func (mr *MockQueueMockRecorder) Stop() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Stop", reflect.TypeOf((*MockQueue)(nil).Stop))
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReadStart", reflect.TypeOf((*MockQueue)(nil).ReadStart))
 }

@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 
 	"github.com/ice-coldbell/analyze-server/internal/service/receiver"
+	"github.com/ice-coldbell/analyze-server/internal/service/worker"
+	"github.com/ice-coldbell/analyze-server/pkg/database"
 	"github.com/ice-coldbell/analyze-server/pkg/errorx"
 	"github.com/ice-coldbell/analyze-server/pkg/queue"
 	"gopkg.in/yaml.v3"
@@ -27,7 +29,9 @@ func (c ServerConfig) FileName() string {
 }
 
 type WorkerConfig struct {
-	Queue queue.Core `yaml:"queue"`
+	Worker worker.Config `yaml:"worker"`
+	Queue  queue.Core    `yaml:"queue"`
+	DB     database.Core `yaml:"db`
 }
 
 func (c WorkerConfig) FileName() string {

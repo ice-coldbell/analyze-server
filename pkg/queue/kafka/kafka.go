@@ -81,7 +81,7 @@ func (c *core) Enqueue(message any) error {
 	return nil
 }
 
-func (c *core) Start() {
+func (c *core) ReadStart() {
 	for i := 0; i < c.readerNum; i++ {
 		c.readerWg.Add(1)
 		loopNum := strconv.Itoa(i) // copy i
@@ -89,7 +89,7 @@ func (c *core) Start() {
 	}
 }
 
-func (c *core) Stop() error {
+func (c *core) Close() error {
 	if c.writer != nil {
 		if err := c.writer.Close(); err != nil {
 			return errorx.Wrap(err)

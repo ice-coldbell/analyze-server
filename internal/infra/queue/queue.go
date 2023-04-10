@@ -8,7 +8,7 @@ import (
 
 type Queue interface {
 	Handle(message any, fn func(context.Context) error)
-	Enqueue(msg any) error
-	Start()
-	Stop() error
+	Enqueue(message any) error
+	ReadStart()
+	Close() error
 }

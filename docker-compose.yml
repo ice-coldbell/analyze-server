@@ -17,7 +17,7 @@ services:
   kafka:
     image: wurstmeister/kafka
     env_file:
-      - environment/kafka/kafka.env
+      - docker/environment/kafka/kafka.env
     depends_on:
       - zookeeper
     ports:
@@ -38,3 +38,75 @@ services:
       - KAFKA_CLUSTERS_0_NAME=local
       - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=host.docker.internal:9092
       - KAFKA_CLUSTERS_0_ZOOKEEPER=zookeeper:2181
+  cassandra-node-0:
+    image: cassandra:3.11
+    ports:
+      - 7000:7000
+      - 9042:9042
+    volumes:
+      - ./docker-volumes/cassandra/cassandra-node-0/data:/var/lib/cassandra/data
+      - ./docker-volumes/cassandra/cassandra-node-0/commitlog:/var/lib/cassandra/commitlog
+      - ./docker-volumes/cassandra/cassandra-node-0/hints:/var/lib/cassandra/hints
+      - ./docker-volumes/cassandra/cassandra-node-0/saved_caches:/var/lib/cassandra/saved_caches
+      - ./docker-volumes/cassandra/cassandra-node-0/logs:/var/log/cassandra
+    env_file:
+      - docker/environment/cassandra/cassandra.env  
+  cassandra-node-1:
+    image: cassandra:3.11
+    ports:
+      - 7001:7000
+      - 9043:9042    
+    depends_on:
+      - cassandra-node-0
+    volumes:
+      - ./docker-volumes/cassandra/cassandra-node-1/data:/var/lib/cassandra/data
+      - ./docker-volumes/cassandra/cassandra-node-1/commitlog:/var/lib/cassandra/commitlog
+      - ./docker-volumes/cassandra/cassandra-node-1/hints:/var/lib/cassandra/hints
+      - ./docker-volumes/cassandra/cassandra-node-1/saved_caches:/var/lib/cassandra/saved_caches
+      - ./docker-volumes/cassandra/cassandra-node-1/logs:/var/log/cassandra
+    env_file:
+      - docker/environment/cassandra/cassandra.env  
+  cassandra-node-2:
+    image: cassandra:3.11
+    ports:
+      - 7002:7000
+      - 9044:9042
+    depends_on:
+      - cassandra-node-1
+    volumes:
+      - ./docker-volumes/cassandra/cassandra-node-2/data:/var/lib/cassandra/data
+      - ./docker-volumes/cassandra/cassandra-node-2/commitlog:/var/lib/cassandra/commitlog
+      - ./docker-volumes/cassandra/cassandra-node-2/hints:/var/lib/cassandra/hints
+      - ./docker-volumes/cassandra/cassandra-node-2/saved_caches:/var/lib/cassandra/saved_caches
+      - ./docker-volumes/cassandra/cassandra-node-2/logs:/var/log/cassandra
+    env_file:
+      - docker/environment/cassandra/cassandra.env
+  analyze-server:
+    image: analyze-server:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - rabbitmq
+      - kafka
+    build:
+      context: .
+      dockerfile: docker/build/analyze-server/Dockerfile
+    env_file:
+      - docker/environment/analyze-server/server.env
+    volumes:
+      - "./docker-volumes/log/analyze-server:/app/log"
+      - "./docker/config:/app/config"
+  analyze-worker:
+    image: analyze-worker:latest
+    build:
+      context: .
+      dockerfile: docker/build/analyze-worker/Dockerfile
+    depends_on:
+      - rabbitmq
+      - kafka
+      - cassandra-node-2
+    env_file:
+      - docker/environment/analyze-worker/worker.env
+    volumes:
+      - "./docker-volumes/log/analyze-worker:/app/log"
+      - "./docker/config:/app/config"

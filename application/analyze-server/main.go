@@ -36,14 +36,17 @@ func main() {
 		return
 	}
 	defer func() {
-		if err := eventQueue.Stop(); err != nil {
-			l.WithError(err).Error("failed logger shutdown")
+		if err := eventQueue.Close(); err != nil {
+			l.WithError(err).Error("failed queue shutdown")
 		}
 	}()
+
 	eventReceiver := receiver.New(cfg.Receiver, eventQueue, l)
 	defer eventReceiver.Stop()
 
+	l.Debug("RUNNING...")
 	shutdown := make(chan os.Signal, 1)
 	signal.Notify(shutdown, os.Interrupt)
 	<-shutdown
+	l.Debug("SHUTDOWN")
 }

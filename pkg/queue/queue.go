@@ -17,8 +17,8 @@ const (
 type Queue interface {
 	Handle(message any, fn func(context.Context) error)
 	Enqueue(msg any) error
-	Start()
-	Stop() error
+	ReadStart()
+	Close() error
 }
 
 type Core struct {
@@ -33,7 +33,7 @@ func (cfg *Core) UnmarshalYAML(value *yaml.Node) error {
 	if err := value.Decode(&queueConfig); err != nil {
 		return errorx.Wrap(err)
 	}
-	switch queueConfig.QueueType {
+	switch t := queueConfig.QueueType; t {
 	case queueTypeKafka:
 		cfg.buildFunc = func() error {
 			var kafkaConfig kafka.Config
@@ -60,6 +60,8 @@ func (cfg *Core) UnmarshalYAML(value *yaml.Node) error {
 			cfg.q = q
 			return nil
 		}
+	default:
+		return errorx.New("unknown queue type").With("type", t)
 	}
 	return nil
 }
@@ -74,7 +76,7 @@ func (cfg *Core) Build() error {
 
 func (cfg *Core) GetQueue() (Queue, error) {
 	if cfg.q == nil {
-		return nil, errorx.New("invaild queue type")
+		return nil, errorx.New("queue is nil")
 	}
 	return cfg.q, nil
 }
