@@ -1,0 +1,25 @@
+###
+# HTTP/1.1 200 OK
+# Date: Tue, 28 Mar 2023 13:37:28 GMT
+# Content-Length: 0
+# Connection: close
+#
+POST http://localhost:8080/event HTTP/1.1
+content-type: application/json
+
+{
+    "identifier" : "test",
+    "user_id" : "abcdefg",
+    "data": {
+        "foo": "var"
+    }
+}
+
+###
+# HTTP/1.1 400 Bad Request
+# Date: Tue, 28 Mar 2023 13:37:46 GMT
+# Content-Length: 0
+# Connection: close
+#
+POST http://localhost:8080/event HTTP/1.1
+content-type: application/json

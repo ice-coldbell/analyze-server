@@ -1,0 +1,47 @@
+level: info
+encoders:
+  - encoding: console
+    outputs: 
+      - stdout
+    config:
+      messageKey: M
+      levelKey: L
+      timeKey: T
+      nameKey: N
+      callerKey: C
+      functionKey: F
+      stacktraceKey: S
+      levelEncoder: capitalColor
+      timeEncoder: RFC3339
+      durationEncoder: ms
+      callerEncoder: full
+      nameEncoder: full
+  - encoding: json
+    outputs:
+      - filename: app.log
+        maxsize: 512
+        maxage: 1
+        maxbackups: 5
+        localtime: true
+        compress: true
+    config:
+      messageKey: M
+      levelKey: L
+      timeKey: T
+      nameKey: N
+      callerKey: C
+      functionKey: F
+      stacktraceKey: S
+      levelEncoder: capital
+      timeEncoder: RFC3339
+      durationEncoder: ms
+      callerEncoder: full
+      nameEncoder: full
+errorOutputs:
+  - stderr
+  - filename: error.log
+    maxsize: 512 # megabytes
+    maxage: 1 # days
+    maxbackups: 3
+    localtime: true
+    compress: false

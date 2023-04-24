@@ -1,0 +1,10 @@
+bin
+
+log/*
+config/*
+!config/log-sample.yaml
+!config/server-rabbitmq-sample.yaml
+!config/server-kafka-sample.yaml
+!config/worker-rabbitmq-sample.yaml
+!config/worker-kafka-sample.yaml
+docker-volumes
